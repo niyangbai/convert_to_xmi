@@ -21,7 +21,6 @@ Where <input-file.jsonl> is the path to the JSONL file you want to convert, and 
 Let's say you have a JSONL file called `example.jsonl` in the same directory as the converter jar. To convert this file to XMI format, you would use the following command:
 
 ```python
-java -jar jsonl-to-uima-cas-xmi-1.0-converter.jar -input example.jsonl -output example.xmi
 python converter.py example.xml example.jsonl
 ```
 This would create an XMI file called example.xmi in the same directory as the input file.
