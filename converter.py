@@ -12,6 +12,10 @@ else:
     xml = sys.argv[1]
     jsonl = sys.argv[2]
 
+if len(sys.argv) > 3:
+    print("Please only use 3 command line arguement")
+    sys.exit(1)
+
 if len(sys.argv) == 3:
     output = os.getcwd()
 else:
