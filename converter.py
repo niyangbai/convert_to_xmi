@@ -5,20 +5,19 @@ import json
 import spacy
 
 
-if ((sys.argv[1][-4] != ".xml") and (sys.argv[2][-6] != ".jsonl")):
+if ((sys.argv[1][-4:] != ".xml") and (sys.argv[2][-6:] != ".jsonl")):
     print("Please use .xml and .jsonl")
     sys.exit(1)
+else:
+    xml = sys.argv[1]
+    jsonl = sys.argv[2]
 
-argv = sys.argv[1:]
+if len(sys.argv) == 3:
+    output = os.getcwd()
+else:
+    output = sys.argv[3]
 
-if len(argv) == 2:
-    argv.append(os.getcwd())
-
-def main(argv):
-
-    xml = argv[0]
-    jsonl = argv[1]
-    output = argv[2]
+def main(xml, jsonl, output):
 
     # Load our type system
     with open(xml, "rb") as f:
@@ -92,4 +91,4 @@ def main(argv):
 
 
 if __name__ == "__main__":
-    main(argv)
+    main(xml, jsonl, output)
