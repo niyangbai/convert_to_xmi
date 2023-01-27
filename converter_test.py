@@ -4,10 +4,13 @@ import json
 import spacy
 
 if len(sys.argv) != 3:
-    if ((sys.argv[1][-4] != ".xml") and (sys.argv[2][-6] != ".jsonl")):
+    if (sys.argv[1][-4] != ".xml") and (sys.argv[2][-6] != ".jsonl"):
         print("Please use .xml and .jsonl")
     print("Please use .xml and .jsonl")
     sys.exit(1)
+
+def find_nearest(arr, num):
+    return min(arr, key=lambda x: abs(x - num))
 
 def main(argv):
 
@@ -44,36 +47,46 @@ def main(argv):
 
             cas.sofa_string = text
 
+
             for sentence in doc.sents:
                 cas_sentence = Sentence(begin=sentence.start_char, end=sentence.end_char)
                 cas.add_annotation(cas_sentence)
                 assert sentence.text == cas_sentence.get_covered_text()
 
+            b = []
+            e = []
             for token in doc:
                 cas_token = Token(begin=token.idx, end=token.idx + len(token))
                 cas.add_annotation(cas_token)
                 assert token.text == cas_token.get_covered_text()
+                b.append(token.idx)
+                e.append(token.idx + len(token))
 
             d = {}
             for entity in data["relations"]:
-                cas_head_entity = NamedEntity(begin=entity["head_span"]["start"], end=entity["head_span"]["end"], value = entity["head_span"]["label"])
-                cas_child_entity = NamedEntity(begin=entity["child_span"]["start"], end=entity["child_span"]["end"], value = entity["child_span"]["label"])
+                head_begin = find_nearest(b, entity["head_span"]["start"])
+                head_end = find_nearest(e, entity["head_span"]["end"])
+                child_begin = find_nearest(b, entity["child_span"]["start"])
+                child_end = find_nearest(e, entity["child_span"]["end"])
 
-                if entity["head_span"]["start"] not in d.keys():
+                cas_head_entity = NamedEntity(begin=head_begin, end=head_end, value = entity["head_span"]["label"])
+                cas_child_entity = NamedEntity(begin=child_begin, end=child_end, value = entity["child_span"]["label"])
+
+                if head_begin not in d.keys():
                     cas.add_annotation(cas_head_entity)
-                    d[entity["head_span"]["start"]] = cas_head_entity
+                    d[head_begin] = cas_head_entity
                     governor = cas_head_entity
                 else:
-                    governor = d[entity["head_span"]["start"]]
+                    governor = d[head_begin]
 
-                if entity["child_span"]["start"] not in d.keys():
+                if child_begin not in d.keys():
                     cas.add_annotation(cas_child_entity)
-                    d[entity["child_span"]["start"]] = cas_child_entity
+                    d[child_begin] = cas_child_entity
                     dependent = cas_child_entity
                 else:
-                    dependent = d[entity["child_span"]["start"]]
+                    dependent = d[child_begin]
 
-                cas_relation = SemanticRelations(begin=entity["child_span"]["start"], end=entity["child_span"]["end"], Dependent=dependent, Governor=governor, Relation=entity["label"])
+                cas_relation = SemanticRelations(begin=child_begin, end=child_end, Dependent=dependent, Governor=governor, Relation=entity["label"])
                 cas.add_annotation(cas_relation)
 
             counter += 1
