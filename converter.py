@@ -17,7 +17,6 @@ def main(argv):
     # Load our type system
     with open(xml, "rb") as f:
         ts = load_typesystem(f)
-    cas = Cas(typesystem=ts)
 
     # Create the CAS
     SENTENCE_TYPE = "de.tudarmstadt.ukp.dkpro.core.api.segmentation.type.Sentence"
@@ -40,8 +39,6 @@ def main(argv):
     with open(jsonl) as f:
         for row in f:
 
-            with open(xml, "rb") as f:
-                ts = load_typesystem(f)
             cas = Cas(typesystem=ts)
             
             data = json.loads(row)
