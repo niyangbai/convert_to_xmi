@@ -12,7 +12,7 @@ else:
     xml = sys.argv[1]
     jsonl = sys.argv[2]
 
-if len(sys.argv) > 3:
+if len(sys.argv) > 4:
     print("Please only use 3 command line arguement")
     sys.exit(1)
 
