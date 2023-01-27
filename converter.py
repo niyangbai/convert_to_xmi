@@ -33,6 +33,7 @@ def main(argv):
     # Set counter for .xmi file name
     counter = 0
 
+    # Load spacy nlp fro sentences
     nlp = spacy.load("en_core_web_sm")
 
     # Convert .jsonl file to .xmi
