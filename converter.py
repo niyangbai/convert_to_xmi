@@ -1,18 +1,24 @@
 import sys
+import os
 from cassis import *
 import json
 import spacy
 
-if len(sys.argv) != 3:
-    if ((sys.argv[1][-4] != ".xml") and (sys.argv[2][-6] != ".jsonl")):
-        print("Please use .xml and .jsonl")
+
+if ((sys.argv[1][-4] != ".xml") and (sys.argv[2][-6] != ".jsonl")):
     print("Please use .xml and .jsonl")
     sys.exit(1)
 
+argv = sys.argv[1:]
+
+if len(argv) == 2:
+    argv.append(os.getcwd())
+
 def main(argv):
 
-    xml = argv[1]
-    jsonl = argv[2]
+    xml = argv[0]
+    jsonl = argv[1]
+    output = argv[2]
 
     # Load our type system
     with open(xml, "rb") as f:
@@ -80,10 +86,10 @@ def main(argv):
                 cas.add_annotation(cas_relation)
 
             counter += 1
-            cas.to_xmi(f"line_{counter}.xmi")
+            cas.to_xmi(f"{output}\line_{counter}.xmi")
 
     sys.exit(0)
 
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main(argv)
