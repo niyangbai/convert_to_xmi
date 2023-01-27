@@ -15,15 +15,15 @@ To convert a JSONL file to UIMA CAS XMI 1.0 format, you can use the following co
 python converter.py <input-file.xml> <input-file.jsonl> <result-path>
 ```
 
-Where <input-file.jsonl> is the path to the JSONL file you want to convert, and <descriptor-file.xml> is the path to the custom descriptor file. <result-path> is set defult to current folder.
+Where `<input-file.jsonl>` is the path to the JSONL file you want to convert, and `<descriptor-file.xml>` is the path to the custom descriptor file. `<result-path>` is set defult to current folder.
 
 ### Example
-Let's say you have a JSONL file called `example.jsonl` in the same directory as the converter jar. To convert this file to XMI format, you would use the following command:
+Let's say you have a JSONL file called `example.jsonl` in the same directory as the converter. To convert this file to XMI format, you would use the following command:
 
 ```python
 python converter.py example.xml example.jsonl
 ```
-This would create an XMI file called example.xmi in the same directory as the input file.
+This would create an XMI file called `example.xmi` in the same directory as the input file.
 
 ### Support
 If you have any issues or questions about this tool, please open an issue in this repository or contact the author directly.
