@@ -87,6 +87,13 @@ def main(xml, jsonl, output):
 
                 cas_relation = SemanticRelations(begin=entity["child_span"]["start"], end=entity["child_span"]["end"], Dependent=dependent, Governor=governor, Relation=entity["label"])
                 cas.add_annotation(cas_relation)
+            
+            for span in data["spans"]:
+                cas_span = NamedEntity(begin=span["start"], end=span["end"], value = span["label"])
+
+                if span["start"] not in d.keys():
+                    cas.add_annotation(cas_span)
+                    d[span["start"]] = cas_span
 
             counter += 1
             cas.to_xmi(f"{output}\line_{counter}.xmi")
