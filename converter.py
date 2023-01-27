@@ -49,10 +49,10 @@ def main(argv):
                 cas.add_annotation(cas_sentence)
                 assert sentence.text == cas_sentence.get_covered_text()
 
-            for token in doc:
-                cas_token = Token(begin=token.idx, end=token.idx + len(token))
+            for token in data["tokens"]:
+                cas_token = Token(begin=token["start"], end=token["end"])
                 cas.add_annotation(cas_token)
-                assert token.text == cas_token.get_covered_text()
+                assert token["text"] == cas_token.get_covered_text()
 
             d = {}
             for entity in data["relations"]:
