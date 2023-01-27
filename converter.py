@@ -33,15 +33,20 @@ def main(argv):
     # Set counter for .xmi file name
     counter = 0
 
+    nlp = spacy.load("en_core_web_sm")
+
     # Convert .jsonl file to .xmi
     with open(jsonl) as f:
         for row in f:
+
+            with open(xml, "rb") as f:
+                ts = load_typesystem(f)
+            cas = Cas(typesystem=ts)
+            
             data = json.loads(row)
             text = data["text"]
-
-            nlp = spacy.load("en_core_web_sm")
+            
             doc = nlp(text)
-
             cas.sofa_string = text
 
             for sentence in doc.sents:
