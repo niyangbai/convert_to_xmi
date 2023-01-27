@@ -1,3 +1,6 @@
+#xmi file
+*.xmi
+
 # json file
 *.jsonl
 *.json
