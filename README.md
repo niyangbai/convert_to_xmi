@@ -1,6 +1,6 @@
 ## JSONL to UIMA CAS XMI 1.0 Converter
 
-This project provides a tool for converting a JSONL file to UIMA CAS XMI 1.0 format. This format can be used on INCEpTION, an open-source platform for creating, running, and evaluating natural language processing (NLP) systems.
+This excerise provides a tool for converting a JSONL file to UIMA CAS XMI 1.0 format. This format can be used on INCEpTION, an open-source platform for creating, running, and evaluating natural language processing (NLP) systems.
 
 ### Getting Started
 To use this tool, you will need to have the following installed on your system:
