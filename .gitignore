@@ -137,3 +137,6 @@ dmypy.json
 
 # Test file
 test.*
+
+# Results
+/result
