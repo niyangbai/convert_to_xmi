@@ -4,7 +4,7 @@ import json
 import spacy
 
 if len(sys.argv) != 3:
-    if (sys.argv[1][-4] != ".xml") and (sys.argv[1][-6] != ".jsonl"):
+    if (sys.argv[1][-4] != ".xml") and (sys.argv[2][-6] != ".jsonl"):
         print("Please use .xml and .jsonl")
     print("Please use .xml and .jsonl")
     sys.exit(1)
@@ -75,9 +75,9 @@ def main(argv):
                 if head_begin not in d.keys():
                     cas.add_annotation(cas_head_entity)
                     d[head_begin] = cas_head_entity
-                    goverbor = cas_head_entity
+                    governor = cas_head_entity
                 else:
-                    goverbor = d[head_begin]
+                    governor = d[head_begin]
 
                 if child_begin not in d.keys():
                     cas.add_annotation(cas_child_entity)
@@ -86,7 +86,7 @@ def main(argv):
                 else:
                     dependent = d[child_begin]
 
-                cas_relation = SemanticRelations(begin=child_begin, end=child_end, Dependent=dependent, Governor=goverbor, Relation=entity["label"])
+                cas_relation = SemanticRelations(begin=child_begin, end=child_end, Dependent=dependent, Governor=governor, Relation=entity["label"])
                 cas.add_annotation(cas_relation)
 
             counter += 1
