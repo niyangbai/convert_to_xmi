@@ -8,8 +8,8 @@ if ((sys.argv[1][-4:] != ".txt") and (sys.argv[2][-6:] != ".jsonl")):
     print("Please use .txt and .jsonl")
     sys.exit(1)
 else:
-    xml = sys.argv[1]
-    jsonl = sys.argv[2]
+    txtfile = sys.argv[1]
+    jsonlfile = sys.argv[2]
 
 if len(sys.argv) > 4:
     print("Please only use 3 command line arguement")
