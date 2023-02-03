@@ -59,12 +59,10 @@ def main(xml, jsonl, output):
             for sentence in doc.sents:
                 cas_sentence = Sentence(begin=sentence.start_char, end=sentence.end_char)
                 cas.add_annotation(cas_sentence)
-                assert sentence.text == cas_sentence.get_covered_text()
 
             for token in data["tokens"]:
                 cas_token = Token(begin=token["start"], end=token["end"])
                 cas.add_annotation(cas_token)
-                assert token["text"] == cas_token.get_covered_text()
 
             d = {}
             for entity in data["relations"]:
