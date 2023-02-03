@@ -1,5 +1,4 @@
 import sys
-import os
 import json
 import re
 
@@ -11,14 +10,9 @@ else:
     txtfile = sys.argv[1]
     jsonlfile = sys.argv[2]
 
-if len(sys.argv) > 4:
+if len(sys.argv) > 3:
     print("Please only use 3 command line arguement")
     sys.exit(1)
-
-if len(sys.argv) == 3:
-    output = os.getcwd()
-else:
-    output = sys.argv[3]
 
 
 def text_search(word, txt):
@@ -44,7 +38,7 @@ def tokens_move(tokens, point):
     return(tokens)
 
 
-def main(txtfile, jsonlfile, output):
+def main(txtfile, jsonlfile):
     with open(txtfile, "r") as f:
         words = [" " + line.rstrip() for line in f]
 
@@ -89,9 +83,9 @@ def main(txtfile, jsonlfile, output):
                 "relations" : relations
             }
 
-            with open(output, "a") as f:
+            with open("cleaned.jsonl", "a") as f:
                 f.write(json.dumps(result) + "\n")
 
 
 if __name__ == "__main__":
-    main(txtfile, jsonlfile, output)
+    main(txtfile, jsonlfile)
