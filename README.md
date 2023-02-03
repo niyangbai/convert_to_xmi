@@ -18,13 +18,12 @@ python converter.py <input-file.xml> <input-file.jsonl> <result-path>
 Where `<input-file.jsonl>` is the path to the JSONL file you want to convert, and `<descriptor-file.xml>` is the path to the custom descriptor file. `<result-path>` is set defult to current folder.
 
 If there are typo with JSONL file like this:
-`
+
+```
 "UK-Spanish startupArbolushas" 
-
 "London-based startupTaxScoutscombines" 
-
 "UK-basedOxford VRhas" 
-`
+```
 
 you can use the following command to clean a JSONL file first:
 
