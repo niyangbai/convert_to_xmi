@@ -17,6 +17,21 @@ python converter.py <input-file.xml> <input-file.jsonl> <result-path>
 
 Where `<input-file.jsonl>` is the path to the JSONL file you want to convert, and `<descriptor-file.xml>` is the path to the custom descriptor file. `<result-path>` is set defult to current folder.
 
+If there are errors with JSONL file like this:
+`
+"UK-Spanish startupArbolushas" 
+"London-based startupTaxScoutscombines" 
+"UK-basedOxford VRhas" 
+`
+
+you can use the following command to clean a JSONL file first:
+
+```python
+python converter.py <input-file.txt> <input-file.jsonl>
+```
+
+Where `<input-file.jsonl>` is the path to the JSONL file you want to clean, and `<input-file.txt>` is the text file which contains the words couse the problem.
+
 ### Example
 Let's say you have a JSONL file called `example.jsonl` in the same directory as the converter. To convert this file to XMI format, you would use the following command:
 
