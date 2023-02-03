@@ -25,7 +25,7 @@ If there are typo with JSONL file like this:
 "UK-basedOxford VRhas" 
 ```
 
-where e.g. the ` ` (spaces) between `startup`, `Arbolus`, and `has` are missing, you can use the following command to clean a JSONL file first:
+where e.g. the ` ` (spaces) between `startup`, `Arbolus`, and `has` are missing, you can use the following command to clean the JSONL file first:
 
 ```python
 python cleaner.py <input-file.txt> <input-file.jsonl>
@@ -37,7 +37,7 @@ Where `<input-file.txt>` is the txt file which contains the words couse the prob
 Let's say you have a JSONL file called `example.jsonl` in the same directory as the converter. To convert this file to XMI format, you would use the following command:
 
 ```python
-python converter.py example.xml example.jsonl /example-path
+python converter.py example.xml example.jsonl
 ```
 This would create an XMI file called `example.xmi` in the same directory as the input file.
 
