@@ -28,7 +28,7 @@ If there are typo with JSONL file like this:
 where e.g. the ` `(space) between `startup` and `Arbolushas` is missing, you can use the following command to clean a JSONL file first:
 
 ```python
-python converter.py <input-file.txt> <input-file.jsonl>
+python cleaner.py <input-file.txt> <input-file.jsonl>
 ```
 
 Where `<input-file.jsonl>` is the path to the JSONL file you want to clean, and `<input-file.txt>` is the text file which contains the words couse the problem.
