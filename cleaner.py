@@ -40,7 +40,7 @@ def tokens_move(tokens, point):
 
 def main(txtfile, jsonlfile):
     with open(txtfile, "r") as f:
-        words = [" " + line.rstrip() for line in f]
+        words = [line.rstrip() for line in f]
 
     with open(jsonlfile, "r") as f:
         for row in f:
@@ -55,14 +55,13 @@ def main(txtfile, jsonlfile):
             for word in words:
                 search_result += text_search(word, text)
 
-            plus = 0
             for e in search_result:
-                if (text[e["end"] + plus].isalpha()) and (text[e["end"] + plus + 1].isalpha()):
-                    text = text[:e["end"] + plus] + " " + text[e["end"] + plus:]
-                    plus += 1
+                if (text[e["end"]].isalpha()) and (text[e["end"] + 1].isalpha()):
+                    text = text[:e["end"]] + " " + text[e["end"]:]
 
                     spans = tokens_move(spans, e["end"])
                     tokens = tokens_move(tokens, e["end"])
+                    search_result = tokens_move(search_result, e["end"])
 
                     for relation in relations:
                         
