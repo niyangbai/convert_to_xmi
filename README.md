@@ -15,7 +15,7 @@ To convert a JSONL file to UIMA CAS XMI 1.0 format, you can use the following co
 python converter.py <input-file.xml> <input-file.jsonl> <result-path>
 ```
 
-Where `<input-file.jsonl>` is the path to the JSONL file you want to convert, and `<descriptor-file.xml>` is the path to the custom descriptor file. `<result-path>` is set defult to current folder.
+Where `<descriptor-file.xml>` is the custom descriptor file, `<input-file.jsonl>` is the path to the JSONL file you want to convert, and `<result-path>` is the path to store converted .xmi files, it is set defult to current folder.
 
 If there are typo with JSONL file like this:
 
@@ -31,13 +31,13 @@ where e.g. the ` ` (spaces) between `startup`, `Arbolus`, and `has` are missing,
 python cleaner.py <input-file.txt> <input-file.jsonl>
 ```
 
-Where `<input-file.jsonl>` is the path to the JSONL file you want to clean, and `<input-file.txt>` is the text file which contains the words couse the problem.
+Where `<input-file.txt>` is the txt file which contains the words couse the problem, and `<input-file.jsonl>` is the path to the JSONL file you want to clean. With the command above, a new .jsonl file named `cleaned.jsonl` will be generated in the current folder.
 
 ### Example
 Let's say you have a JSONL file called `example.jsonl` in the same directory as the converter. To convert this file to XMI format, you would use the following command:
 
 ```python
-python converter.py example.xml example.jsonl
+python converter.py example.xml example.jsonl /example-path
 ```
 This would create an XMI file called `example.xmi` in the same directory as the input file.
 
