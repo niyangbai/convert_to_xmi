@@ -60,8 +60,8 @@ def main(xml, jsonl, output):
                 cas_sentence = Sentence(begin=sentence.start_char, end=sentence.end_char)
                 cas.add_annotation(cas_sentence)
 
-            for token in data["tokens"]:
-                cas_token = Token(begin=token["start"], end=token["end"])
+            for token in doc:
+                cas_token = Token(begin=token.idx, end=token.idx + len(token))
                 cas.add_annotation(cas_token)
 
             d = {}

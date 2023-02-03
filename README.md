@@ -25,7 +25,7 @@ If there are typo with JSONL file like this:
 "UK-basedOxford VRhas" 
 ```
 
-where e.g. the ` `(space) between `startup` and `Arbolushas` is missing, you can use the following command to clean a JSONL file first:
+where e.g. the ` ` (spaces) between `startup`, `Arbolus`, and `has` are missing, you can use the following command to clean a JSONL file first:
 
 ```python
 python cleaner.py <input-file.txt> <input-file.jsonl>

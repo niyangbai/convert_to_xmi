@@ -1,5 +1,6 @@
 import sys
 import json
+import numpy as np
 import re
 
 
@@ -29,15 +30,6 @@ def text_search(word, txt):
     return result
 
 
-def tokens_move(tokens, point):
-    for dic in tokens:
-        if dic["start"] > point:
-            dic["start"] += 1
-        if dic["end"] > point:
-            dic["end"] += 1
-    return(tokens)
-
-
 def main(txtfile, jsonlfile):
     with open(txtfile, "r") as f:
         words = [line.rstrip() for line in f]
@@ -48,37 +40,58 @@ def main(txtfile, jsonlfile):
 
             text = data["text"]
             spans = data["spans"]
-            tokens = data["tokens"]
             relations = data["relations"]
 
-            search_result = []
+            search_results = []
             for word in words:
-                search_result += text_search(word, text)
+                search_results += text_search(word, text)
 
-            for e in search_result:
-                if (text[e["end"]].isalpha()) and (text[e["end"] + 1].isalpha()):
-                    text = text[:e["end"]] + " " + text[e["end"]:]
+            
+            for search_result in search_results:
+                error_token = []
+                for token in data["tokens"]:
+                    if (token["start"] == search_result["start"]) and token["end"] != search_result["end"]:
+                        error_token.append(token["text"])
 
-                    spans = tokens_move(spans, e["end"])
-                    tokens = tokens_move(tokens, e["end"])
-                    search_result = tokens_move(search_result, e["end"])
+                if len(error_token):
+                    for error in error_token:
+                        for i in data["spans"]:
+                            if (text[i["start"]:i["end"]] in error) and (i["label"] == "ORG"):
+                                key = text[i["start"]:i["end"]]
+                                break
 
-                    for relation in relations:
-                        
-                        if relation["head_span"]["start"] > e["end"]:
-                            relation["head_span"]["start"] += 1
-                        if relation["head_span"]["end"] > e["end"]:
-                            relation["head_span"]["end"] += 1
+                        clean = [
+                            text[:search_result["start"] + len("startup")], 
+                            text[search_result["start"] + len("startup"):search_result["start"] + len("startup") + len(key)],
+                            text[search_result["start"] + len("startup") + len(key):]
+                        ]
 
-                        if relation["child_span"]["start"] > e["end"]:
-                            relation["child_span"]["start"] += 1
-                        if relation["child_span"]["end"] > e["end"]:
-                            relation["child_span"]["end"] += 1
+                        placeholder = [len(x) for x in clean]
+                        check_ponits = list(np.cumsum(placeholder[:-1]))
+                        text = " ".join(clean)
+
+                        for check_point in check_ponits:
+
+                            for span in spans:
+                                if span["start"] > check_point:
+                                    span["start"] += 1
+                                if span["end"] > check_point:
+                                    span["end"] += 1
+                            
+                            for relation in relations:
+                                if relation["head_span"]["start"] > check_point:
+                                    relation["head_span"]["start"] += 1
+                                if relation["head_span"]["end"] > check_point:
+                                    relation["head_span"]["end"] += 1
+
+                                if relation["child_span"]["start"] > check_point:
+                                    relation["child_span"]["start"] += 1
+                                if relation["child_span"]["end"] > check_point:
+                                    relation["child_span"]["end"] += 1         
 
             result = {
                 "text" : text,
                 "spans" : spans,
-                "tokens" : tokens,
                 "relations" : relations
             }
 
