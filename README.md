@@ -20,9 +20,9 @@ Where `<input-file.jsonl>` is the path to the JSONL file you want to convert, an
 If there are typo with JSONL file like this:
 
 ```
-"UK-Spanish startupArbolushas" 
-"London-based startupTaxScoutscombines" 
-"UK-basedOxford VRhas" 
+"UK-Spanish *startupArbolushas*" 
+"London-based *startupTaxScoutscombines*" 
+"UK-*basedOxford* VRhas" 
 ```
 
 you can use the following command to clean a JSONL file first:
