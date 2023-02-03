@@ -20,12 +20,12 @@ Where `<input-file.jsonl>` is the path to the JSONL file you want to convert, an
 If there are typo with JSONL file like this:
 
 ```
-"UK-Spanish *startupArbolushas*" 
-"London-based *startupTaxScoutscombines*" 
-"UK-*basedOxford* VRhas" 
+"UK-Spanish startupArbolushas" 
+"London-based startupTaxScoutscombines" 
+"UK-basedOxford VRhas" 
 ```
 
-you can use the following command to clean a JSONL file first:
+where e.g. the ` (space)` between `startup` and `Arbolushas` is missing, you can use the following command to clean a JSONL file first:
 
 ```python
 python converter.py <input-file.txt> <input-file.jsonl>
