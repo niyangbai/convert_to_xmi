@@ -98,7 +98,7 @@ def main(txtfile, jsonlfile):
             with open("cleaned.jsonl", "a") as f:
                 f.write(json.dumps(result) + "\n")
             
-            sys.exit(1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
