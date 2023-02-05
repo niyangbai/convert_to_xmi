@@ -59,10 +59,9 @@ def main(txtfile, jsonlfile):
                             if (text[i["start"]:i["end"]] in error) and (i["label"] == "ORG"):
                                 key = text[i["start"]:i["end"]]
                                 break
-                        
+            
                         if key == None:
                             continue
-
 
                         word_len = search_result["end"] - search_result["start"]
 
