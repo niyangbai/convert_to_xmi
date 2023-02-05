@@ -55,10 +55,14 @@ def main(txtfile, jsonlfile):
 
                 if len(error_token):
                     for error in error_token:
+                        key = None
                         for i in data["spans"]:
                             if (text[i["start"]:i["end"]] in error) and (i["label"] == "ORG"):
                                 key = text[i["start"]:i["end"]]
                                 break
+                        
+                        if key == None:
+                            continue
 
                         clean = [
                             text[:search_result["start"] + len("startup")], 
@@ -99,7 +103,6 @@ def main(txtfile, jsonlfile):
                 f.write(json.dumps(result) + "\n")
             
     sys.exit(0)
-
 
 if __name__ == "__main__":
     main(txtfile, jsonlfile)
