@@ -25,7 +25,7 @@ def text_search(word, txt):
             break
         else:
             result.append({"start":s.start() + plus, "end":s.end() + plus})
-            plus = plus + s.end()
+            plus += s.end()
             txt = txt[s.end():]
     return result
 
