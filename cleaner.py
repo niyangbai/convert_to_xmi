@@ -45,7 +45,6 @@ def main(txtfile, jsonlfile):
             search_results = []
             for word in words:
                 search_results += text_search(word, text)
-
             
             for search_result in search_results:
                 error_token = []
@@ -64,11 +63,17 @@ def main(txtfile, jsonlfile):
                         if key == None:
                             continue
 
+
+                        word_len = search_result["end"] - search_result["start"]
+
                         clean = [
-                            text[:search_result["start"] + len("startup")], 
-                            text[search_result["start"] + len("startup"):search_result["start"] + len("startup") + len(key)],
-                            text[search_result["start"] + len("startup") + len(key):]
+                            text[:search_result["start"] + word_len], 
+                            text[search_result["start"] + word_len:search_result["start"] + word_len + len(key)],
+                            text[search_result["start"] + word_len + len(key):]
                         ]
+
+                        if not clean[2][0].isalnum():
+                            clean = [clean[0], clean[1] + clean[2]]
 
                         placeholder = [len(x) for x in clean]
                         check_ponits = list(np.cumsum(placeholder[:-1]))
