@@ -84,25 +84,28 @@ def main(txtfile, jsonlfile):
                         placeholder = [len(x) for x in clean]
                         check_ponits = list(np.cumsum(placeholder[:-1]))
                         text = " ".join(clean)
-
+                        
+                        adjust = 0
                         for check_point in check_ponits:
-
+                            check_point += adjust
                             for span in spans:
-                                if span["start"] > check_point:
+                                if span["start"] >= check_point:
                                     span["start"] += 1
                                 if span["end"] > check_point:
                                     span["end"] += 1
                             
                             for relation in relations:
-                                if relation["head_span"]["start"] > check_point:
+                                if relation["head_span"]["start"] >= check_point:
                                     relation["head_span"]["start"] += 1
                                 if relation["head_span"]["end"] > check_point:
                                     relation["head_span"]["end"] += 1
 
-                                if relation["child_span"]["start"] > check_point:
+                                if relation["child_span"]["start"] >= check_point:
                                     relation["child_span"]["start"] += 1
                                 if relation["child_span"]["end"] > check_point:
-                                    relation["child_span"]["end"] += 1         
+                                    relation["child_span"]["end"] += 1
+
+                            adjust += 1
 
             result = {
                 "text" : text,
@@ -112,7 +115,7 @@ def main(txtfile, jsonlfile):
 
             with open("cleaned.jsonl", "a") as f:
                 f.write(json.dumps(result) + "\n")
-            
+    
     sys.exit(0)
 
 if __name__ == "__main__":
