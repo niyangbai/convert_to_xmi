@@ -71,6 +71,13 @@ def main(txtfile, jsonlfile):
                             text[search_result["start"] + word_len + len(key):]
                         ]
 
+                        spans.append({
+                            "text": text[search_result["start"] + word_len:search_result["start"] + word_len + len(key)],
+                            "start": search_result["start"] + word_len,
+                            "end": search_result["start"] + word_len + len(key),
+                            "label" : "ORG"
+                        })
+
                         if not clean[2][0].isalnum():
                             clean = [clean[0], clean[1] + clean[2]]
 
