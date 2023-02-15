@@ -143,3 +143,6 @@ test.*
 
 # Backup
 backup*
+
+# .csv file
+*.csv
