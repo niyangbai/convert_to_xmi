@@ -140,6 +140,7 @@ test.*
 
 # Results
 /result
+/results
 
 # Backup
 backup*
